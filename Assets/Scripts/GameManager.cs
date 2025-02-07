@@ -1,24 +1,27 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] CubeManager cubeManager;
+    public static GameManager Instance { get; private set; }    //選択状態の管理
+
     [SerializeField] GameObject spotLight;
     [SerializeField] Camera camera;
+    private SelectableObject selectableObject;  //選択状態のオブジェクト
 
-    private Vector3 cameraPosition;
-    private Vector3 goalPosition;
-    private float distance;
-    private float speed = 10f;
-    private float progress = 0.0f;
+    private Vector3 cameraPosition; //カメラの初期位置
+    private Vector3 goalPosition;   //カメラの終着点
+    private float distance;         //初期位置と終着点の距離
+    private float speed = 10f;      //カメラの移動スピード
+    private float progress = 0.0f;  //カメラの進行度合い
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        Instance = this;    //シングルトンのインスタンス設定
+    }
+
     void Start()
     {
-        camera = Camera.main;
         cameraPosition = camera.transform.position;
         goalPosition = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z - 5);
         distance = Vector3.Distance(cameraPosition, goalPosition);
@@ -27,27 +30,67 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spotLight.transform.position = new Vector3(cubeManager.transform.position.x, spotLight.transform.position.y, spotLight.transform.position.z);
-        spotLight.SetActive(cubeManager.IsCubeSelected);
-
-        //進行度を増減
-        if (cubeManager.IsCubeSelected)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            progress += Time.deltaTime * speed / distance;
-        }
-        else
-        {
-            progress -= Time.deltaTime * speed / distance;
+            DeselectObject();   //Escapeキーで選択解除
         }
 
-        //progressを0～1の範囲に制限
-        progress = Mathf.Clamp01(progress);
+        if(selectableObject != null)    //選択状態であれば
+        {
+            spotLight.transform.position = new Vector3(selectableObject.transform.position.x, spotLight.transform.position.y, spotLight.transform.position.z);
+            spotLight.SetActive(true);  //スポットライトの点灯
+
+            selectableObject.RotateObject();    //選択状態のオブジェクトを回転
+
+            progress = Mathf.Clamp01(progress + Time.deltaTime * speed / distance);
+        }
+        else  //選択状態になければ
+        {
+            spotLight.SetActive(false); //スポットライトの消灯
+
+            progress = Mathf.Clamp01(progress - Time.deltaTime * speed / distance);
+        }
 
         //カメラ移動
         camera.transform.position = Vector3.Lerp(cameraPosition, goalPosition, progress);
 
-        // カメラの回転を設定
+        // カメラの回転
         float rotationAngle = Mathf.Lerp(0, 15, progress);
         camera.transform.rotation = Quaternion.Euler(rotationAngle, 0, 0);
+
+        if(selectableObject != null && Input.GetKeyDown(KeyCode.Return))
+        {
+            DontDestroyOnLoad(selectableObject);
+            selectableObject.transform.position = new Vector3(0, 0, 0);
+            selectableObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            SceneManager.LoadScene("PlayScene");
+        }
+    }
+
+    public void HandleObjectSelection(SelectableObject objectToSelect, bool IsSelected)
+    {
+        if (IsSelected) //選択されたら
+        {
+            if(selectableObject != null && !selectableObject.IsSelected)    //既に選択済みのがないか
+            {
+                selectableObject.SetSelected(false);
+            }
+            selectableObject = objectToSelect;
+            goalPosition = new Vector3(objectToSelect.transform.position.x, objectToSelect.transform.position.y + 2, objectToSelect.transform.position.z - 5);
+            distance = Vector3.Distance(cameraPosition, goalPosition);
+        }
+        else  //選択解除のとき
+        {
+            DeselectObject();
+        }
+    }
+
+    private void DeselectObject()   //選択解除
+    {
+        if(selectableObject != null)
+        {
+            selectableObject.ResetObject();
+        }
+        selectableObject = null;
     }
 }
