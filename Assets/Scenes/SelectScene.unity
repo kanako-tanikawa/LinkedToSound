@@ -328,8 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06ea7903681ded4aad4e8f02bac9033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCubeSelected: 0
-  gameManager: {fileID: 1033791961}
 --- !u!65 &100434440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -431,6 +429,7 @@ GameObject:
   - component: {fileID: 184064281}
   - component: {fileID: 184064280}
   - component: {fileID: 184064279}
+  - component: {fileID: 184064283}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -529,6 +528,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &184064283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184064278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9b83a25a72771408545f190b477e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +968,7 @@ GameObject:
   - component: {fileID: 947439585}
   - component: {fileID: 947439584}
   - component: {fileID: 947439583}
+  - component: {fileID: 947439587}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1053,6 +1065,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &947439587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947439582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676b1c64c9f58a24996af6c1b936a3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1033791960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c72d57960304f343b60e22be4337a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeManager: {fileID: 100434439}
   spotLight: {fileID: 1280632298}
   camera: {fileID: 330585545}
 --- !u!4 &1033791962

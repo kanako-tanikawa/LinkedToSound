@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CubeManager : SelectableObject
+public class SylinderManager : SelectableObject
 {
     public override void RotateObject() //‰ñ“]
     {

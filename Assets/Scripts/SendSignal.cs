@@ -11,6 +11,6 @@ public class SignalReceiver : MonoBehaviour
 
     public void SendSignal()
     {
-        cubeManager.IsCubeSelected = true;
+        
     }
 }
