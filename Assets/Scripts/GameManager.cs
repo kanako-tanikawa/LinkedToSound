@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }    //選択状態の管理
 
+    [SerializeField] SignalReceiver signalReceiver;
     [SerializeField] GameObject spotLight;
     [SerializeField] Camera camera;
     private SelectableObject selectableObject;  //選択状態のオブジェクト
@@ -14,6 +16,8 @@ public class GameManager : MonoBehaviour
     private float distance;         //初期位置と終着点の距離
     private float speed = 10f;      //カメラの移動スピード
     private float progress = 0.0f;  //カメラの進行度合い
+
+    [SerializeField] SEManager seManager;
 
     private void Awake()
     {
@@ -42,6 +46,8 @@ public class GameManager : MonoBehaviour
 
             selectableObject.RotateObject();    //選択状態のオブジェクトを回転
 
+            signalReceiver.GetObject(selectableObject);
+
             progress = Mathf.Clamp01(progress + Time.deltaTime * speed / distance);
         }
         else  //選択状態になければ
@@ -58,11 +64,15 @@ public class GameManager : MonoBehaviour
         float rotationAngle = Mathf.Lerp(0, 15, progress);
         camera.transform.rotation = Quaternion.Euler(rotationAngle, 0, 0);
 
-        if(selectableObject != null && Input.GetKeyDown(KeyCode.Return))
+        if(selectableObject != null && Input.GetKeyDown(KeyCode.Return))    //オブジェクトを決定したらシーン移動
         {
-            DontDestroyOnLoad(selectableObject);
+            DontDestroyOnLoad(seManager);
+            seManager.EnterSound(); //SE
+
             selectableObject.transform.position = new Vector3(0, 0, 0);
             selectableObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            DontDestroyOnLoad(camera);
+            DontDestroyOnLoad(selectableObject);
             SceneManager.LoadScene("PlayScene");
         }
     }
@@ -75,6 +85,8 @@ public class GameManager : MonoBehaviour
             {
                 selectableObject.SetSelected(false);
             }
+
+            seManager.SelectSound();    //SE
             selectableObject = objectToSelect;
             goalPosition = new Vector3(objectToSelect.transform.position.x, objectToSelect.transform.position.y + 2, objectToSelect.transform.position.z - 5);
             distance = Vector3.Distance(cameraPosition, goalPosition);
@@ -92,5 +104,6 @@ public class GameManager : MonoBehaviour
             selectableObject.ResetObject();
         }
         selectableObject = null;
+        signalReceiver.GetObject(selectableObject);
     }
 }
