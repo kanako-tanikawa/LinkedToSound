@@ -5,6 +5,11 @@ public class SignalReceiverWithKeyInput : MonoBehaviour     //‰¹‚ðˆê‰¹‚¸‚Â–Â‚ç‚·
 {
     [SerializeField] private PlayableDirector timeline;
 
+    private void Start()
+    {
+        timeline.Play();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
