@@ -15,7 +15,7 @@ public class SignalReceiver : MonoBehaviour
 
     private void Update()
     {
-        if (selectableObject == null)
+        if (selectableObject == null)   //選択解除されたら
         {
             StopCoroutine(LinkedToSound());
         }
@@ -23,10 +23,10 @@ public class SignalReceiver : MonoBehaviour
 
     public void GetObject(SelectableObject selectableObject)
     {
-        this.selectableObject = selectableObject;
+        this.selectableObject = selectableObject;   //選択されたオブジェクトの取得
     }
 
-    public void SendSignal()
+    public void SendSignal()    //MIDI信号に合わせて呼び出される
     {
         if (selectableObject != null)
         {
@@ -34,7 +34,7 @@ public class SignalReceiver : MonoBehaviour
         }
     }
 
-    IEnumerator LinkedToSound() //音に合わせて動作
+    IEnumerator LinkedToSound() //MIDI音源に合わせた動作
     {
         selectableObject.StartLink(waitTime);
         yield return new WaitForSeconds(waitTime);

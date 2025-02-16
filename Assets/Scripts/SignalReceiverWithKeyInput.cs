@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class SignalReceiverWithJump : MonoBehaviour
+public class SignalReceiverWithKeyInput : MonoBehaviour     //‰¹‚ðˆê‰¹‚¸‚Â–Â‚ç‚·
 {
     [SerializeField] private PlayableDirector timeline;
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {

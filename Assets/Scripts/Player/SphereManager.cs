@@ -12,12 +12,12 @@ public class SphereManager : SelectableObject
         base.ResetObject();
     }
 
-    public override void StartLink(float speed)
+    public override void StartLink(float speed) //色変更
     {
         GetComponent<Renderer>().material.color = Color.red;
     }
 
-    public override void EndLink(float speed)
+    public override void EndLink(float speed)   //色リセット
     {
         GetComponent<Renderer>().material.color = Color.gray;
     }
