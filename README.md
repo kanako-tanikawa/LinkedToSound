@@ -9,3 +9,6 @@
 * Spaceキーでジャンプ  
 * Qキーで音が流れる (流れているときにもう一度押すと停止)  
 * Eキーで1音ずつ流れる
+
+# [使用ツール]
+* MIDI Animation Track for Unity Timeline
