@@ -13,11 +13,11 @@ public class SEManager : MonoBehaviour
 
     public void SelectSound()
     {
-        audioSource.PlayOneShot(selectSE);
+        audioSource.PlayOneShot(selectSE);  //‘I‘ð‰¹
     }
 
     public void EnterSound()
     {
-        audioSource.PlayOneShot(enterSE);
+        audioSource.PlayOneShot(enterSE);   //Œˆ’è‰¹
     }
 }

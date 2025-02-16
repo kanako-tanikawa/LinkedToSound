@@ -8,11 +8,11 @@ public class TimelineManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q)) //‰¹Œ¹‚ğ—¬‚·
         {
             if (isPlayed)
             {
-                timeline.Stop();
+                timeline.Stop();    //—¬‚µ‚Ä‚¢‚éó‘Ô‚ÅQ‚ğ‰Ÿ‚·‚Æ’â~
                 isPlayed = false;
             }
             else

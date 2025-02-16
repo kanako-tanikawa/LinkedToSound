@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     private SelectableObject selectableObject;  //選択状態のオブジェクト
 
     private Vector3 cameraPosition; //カメラの初期位置
-    private Vector3 goalPosition;   //カメラの終着点
-    private float distance;         //初期位置と終着点の距離
+    private Vector3 goalPosition;   //カメラの目標点
+    private float distance;         //初期位置と目標点の距離
     private float speed = 10f;      //カメラの移動スピード
     private float progress = 0.0f;  //カメラの進行度合い
 

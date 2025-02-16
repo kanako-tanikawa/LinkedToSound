@@ -11,4 +11,14 @@ public class CubeManager : SelectableObject
     {
         base.ResetObject();
     }
+
+    public override void StartLink(float speed) //‘å‚«‚­‚È‚é
+    {
+        base.StartLink(speed);
+    }
+
+    public override void EndLink(float speed)   //¬‚³‚­‚È‚é
+    {
+        base.EndLink(speed);
+    }
 }

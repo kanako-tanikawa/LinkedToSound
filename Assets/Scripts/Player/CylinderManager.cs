@@ -12,12 +12,12 @@ public class SylinderManager : SelectableObject
         base.ResetObject();
     }
 
-    public override void StartLink(float speed)
+    public override void StartLink(float speed) //ƒWƒƒƒ“ƒv
     {
         transform.localPosition = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), speed);
     }
 
-    public override void EndLink(float speed)
+    public override void EndLink(float speed)   //’…’n
     {
         transform.localPosition = Vector3.MoveTowards(transform.position, new Vector3(-5, 0, 0), speed);
     }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -6,17 +7,25 @@ public class SelectableObject : MonoBehaviour
 {
     public bool IsSelected {  get; private set; }
 
-    private Vector3 goalScale = new Vector3(2, 2, 2);
+    private Vector3 goalScale = new Vector3(2, 2, 2);   //拡大サイズ
+    private Vector3 startScale;  //縮小サイズ
+
     Rigidbody rigidbody;
     [SerializeField] Camera camera;
 
-    float x;    //キーボード入力
-    float z;    //キーボード入力
-    float speed = 5.0f; //動くスピード
-    float jumpPower = 100;  //ジャンプ力
-    float gravityValue = -9.81f;
-    bool isJumping = true; //ジャンプ中か
-    bool isEnter = false;
+    private float x;    //横移動
+    private float z;    //前後移動
+    private float speed = 5.0f; //動くスピード
+    private float jumpPower = 100;  //ジャンプ力
+    private float gravityValue = -9.81f;    //重力
+    private float cameraSpeed = 10f;    //カメラの移動スピード
+    private float progress = 0.0f;  //カメラの進行度合い
+    private bool isJumping = true; //ジャンプ中か
+    private bool isEnter = false;   //建物内か
+
+    private float distance;         //カメラと目標点の距離
+    private Vector3 cameraPosition; //カメラの初期位置
+    private Vector3 goalPosition;   //カメラの目標点
 
     private AudioListener audioListener;
 
@@ -49,12 +58,13 @@ public class SelectableObject : MonoBehaviour
 
     public virtual void StartLink(float speed)
     {
-        transform.localScale = Vector3.MoveTowards(transform.localScale, goalScale, speed);
+        startScale = transform.localScale;
+        transform.localScale = Vector3.MoveTowards(transform.localScale, goalScale, speed); //大きくなる
     }
 
     public virtual void EndLink(float speed)
     {
-        transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(1, 1, 1), speed);
+        transform.localScale = Vector3.MoveTowards(transform.localScale, startScale, speed);  //小さくなる
     }
 
 
@@ -74,7 +84,7 @@ public class SelectableObject : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "PlayScene")  //初期設定
+        if (scene.name == "PlayScene")  //シーン切り替え時の初期設定
         {
             transform.position = new Vector3(0, 0, -10);
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -82,10 +92,15 @@ public class SelectableObject : MonoBehaviour
             rigidbody.useGravity = true;
             audioListener = GetComponent<AudioListener>();
             audioListener.enabled = true;
+
+            camera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z - 8);
+            cameraPosition = camera.transform.position;
+            goalPosition = camera.transform.position;
+            distance = Vector3.Distance(cameraPosition, goalPosition);
         }
     }
 
-    public void Update()
+    void Update()
     {
         if (SceneManager.GetActiveScene().name == "PlayScene")
         {
@@ -99,12 +114,8 @@ public class SelectableObject : MonoBehaviour
         }
     }
 
-    public void FixedUpdate()
+    void FixedUpdate()
     {
-        if (!isEnter)   //建物外
-        {
-            camera.transform.position = new Vector3(transform.position.x, camera.transform.position.y, transform.position.z - 8); //カメラ追従
-        }
 
         if (SceneManager.GetActiveScene().name == "PlayScene")
         {
@@ -113,6 +124,19 @@ public class SelectableObject : MonoBehaviour
             if (isJumping)
             {
                 AddGravity();   //重力
+            }
+
+            //カメラ操作
+            if (isEnter)    //建物内
+            {
+                progress = Mathf.Clamp01(progress + Time.deltaTime * cameraSpeed / distance);
+                camera.transform.position = Vector3.Lerp(cameraPosition, goalPosition, progress);
+            }
+            if (!isEnter)   //建物外
+            {
+                progress = Mathf.Clamp01(progress + Time.deltaTime * cameraSpeed / distance);
+                camera.transform.position = Vector3.Lerp(cameraPosition, goalPosition, progress);
+                camera.transform.position = new Vector3(transform.position.x, camera.transform.position.y, transform.position.z - 8); //カメラ追従
             }
         }
     }
@@ -141,16 +165,22 @@ public class SelectableObject : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Entrance"))
+        if (other.gameObject.CompareTag("Entrance"))    //建物に入ったか
         {
-            if (!isEnter)
+            if (!isEnter) //入ったら
             {
-                camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(transform.position.x, camera.transform.position.y, transform.position.z), 3);
+                progress = 0.0f;
+                cameraPosition = camera.transform.position;
+                goalPosition = new Vector3(0, 5, 1);
+                distance = Vector3.Distance(cameraPosition, goalPosition);
                 isEnter = true;
             }
-            else
+            else　//出たら
             {
-                camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(transform.position.x, camera.transform.position.y, transform.position.z - 8), 3);
+                progress = 0.0f;
+                cameraPosition = camera.transform.position;
+                goalPosition = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z - 8);
+                distance = Vector3.Distance(cameraPosition, goalPosition);
                 isEnter = false;
             }
         }
