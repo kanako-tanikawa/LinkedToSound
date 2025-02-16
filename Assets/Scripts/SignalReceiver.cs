@@ -13,6 +13,14 @@ public class SignalReceiver : MonoBehaviour
         waitTime = 60 / (tempo * 2);
     }
 
+    private void Update()
+    {
+        if (selectableObject == null)
+        {
+            StopCoroutine(LinkedToSound());
+        }
+    }
+
     public void GetObject(SelectableObject selectableObject)
     {
         this.selectableObject = selectableObject;
@@ -28,8 +36,9 @@ public class SignalReceiver : MonoBehaviour
 
     IEnumerator LinkedToSound() //âπÇ…çáÇÌÇπÇƒìÆçÏ
     {
-        selectableObject.LargeSize(waitTime);
+        selectableObject.StartLink(waitTime);
         yield return new WaitForSeconds(waitTime);
-        selectableObject.SmallSize(waitTime);
+        selectableObject.EndLink(waitTime);
+        yield return new WaitForSeconds(waitTime);
     }
 }

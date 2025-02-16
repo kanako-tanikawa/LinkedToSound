@@ -69,8 +69,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(seManager);
             seManager.EnterSound(); //SE
 
-            selectableObject.transform.position = new Vector3(0, 0, 0);
-            selectableObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             DontDestroyOnLoad(camera);
             DontDestroyOnLoad(selectableObject);
             SceneManager.LoadScene("PlayScene");
