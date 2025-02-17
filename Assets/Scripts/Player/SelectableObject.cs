@@ -7,9 +7,6 @@ public class SelectableObject : MonoBehaviour
 {
     public bool IsSelected {  get; private set; }
 
-    private Vector3 goalScale = new Vector3(2, 2, 2);   //拡大サイズ
-    private Vector3 startScale;  //縮小サイズ
-
     Rigidbody rigidbody;
     [SerializeField] Camera camera;
 
@@ -48,7 +45,7 @@ public class SelectableObject : MonoBehaviour
     public virtual void ResetObject()
     {
         transform.rotation = Quaternion.identity; // オブジェクトを元に戻す
-        EndLink(speed);
+        EndLink(cameraSpeed);
     }
 
     public void SetSelected(bool selected)
@@ -56,15 +53,14 @@ public class SelectableObject : MonoBehaviour
         IsSelected = selected;
     }
 
-    public virtual void StartLink(float speed)
+    public virtual void StartLink(float speed)  //MIDI音源と連動始め
     {
-        startScale = transform.localScale;
-        transform.localScale = Vector3.MoveTowards(transform.localScale, goalScale, speed); //大きくなる
+        
     }
 
-    public virtual void EndLink(float speed)
+    public virtual void EndLink(float speed)    //MIDI音源と連動終わり
     {
-        transform.localScale = Vector3.MoveTowards(transform.localScale, startScale, speed);  //小さくなる
+        
     }
 
 
@@ -93,6 +89,7 @@ public class SelectableObject : MonoBehaviour
             audioListener = GetComponent<AudioListener>();
             audioListener.enabled = true;
 
+            //カメラ設定
             camera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z - 8);
             cameraPosition = camera.transform.position;
             goalPosition = camera.transform.position;
