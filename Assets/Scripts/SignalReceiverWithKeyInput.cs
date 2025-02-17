@@ -14,17 +14,18 @@ public class SignalReceiverWithKeyInput : MonoBehaviour     //‰¹‚ğˆê‰¹‚¸‚Â–Â‚ç‚·
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            timeline.Play();
+            timeline.Play();    //–Â‚ç‚·
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace))    //Å‰‚É–ß‚·
         {
-            timeline.time = 0.0;
+            timeline.Stop();
+            timeline.Play();
         }
     }
 
     public void SendSignal()
     {
-        timeline.Pause();
+        timeline.Pause();   //MIDIM†‚ğó‚¯æ‚Á‚½‚ç“r’†’â~
     }
 }
