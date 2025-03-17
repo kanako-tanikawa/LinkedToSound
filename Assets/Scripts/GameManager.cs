@@ -1,3 +1,4 @@
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -18,10 +19,21 @@ public class GameManager : MonoBehaviour
     private float progress = 0.0f;  //カメラの進行度合い
 
     [SerializeField] SEManager seManager;
+    [SerializeField] GameObject LoadingPanel;
 
     private void Awake()
     {
         Instance = this;    //シングルトンのインスタンス設定
+        if(GameObject.Find("Sub Camera") != null)
+        {
+            Destroy(GameObject.Find("Sub Camera"));
+        }
+        if (GameObject.Find("OldPlayer") != null)
+        {
+            Destroy(GameObject.Find("OldPlayer"));
+        }
+
+        LoadingPanel.SetActive(false);
     }
 
     void Start()
@@ -71,6 +83,7 @@ public class GameManager : MonoBehaviour
 
             DontDestroyOnLoad(camera);
             DontDestroyOnLoad(selectableObject);
+            LoadingPanel.SetActive(true);
             SceneManager.LoadScene("PlayScene");
         }
     }
