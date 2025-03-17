@@ -8,7 +8,7 @@
 * WASDまたは矢印キーで移動  
 * Spaceキーでジャンプ  
 * Qキーで音が流れる (流れているときにもう一度押すと停止)  
-* Eキーで1音ずつ流れる
+* Eキーで1音ずつ流れる (BackSpaceキーを押すと最初に戻る)
 
 # 使用ツール
 * MIDI Animation Track for Unity Timeline
