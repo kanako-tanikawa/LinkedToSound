@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering.Universal;
 
 public class SignalReceiver : MonoBehaviour
 {

@@ -1,6 +1,4 @@
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -24,6 +22,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;    //シングルトンのインスタンス設定
+
+        //複数回のシーン移動で増えるのを防ぐ
         if(GameObject.Find("Sub Camera") != null)
         {
             Destroy(GameObject.Find("Sub Camera"));
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             Destroy(GameObject.Find("OldPlayer"));
         }
 
-        LoadingPanel.SetActive(false);
+        LoadingPanel.SetActive(false);  //Now Loading 表示
     }
 
     void Start()
@@ -78,12 +78,13 @@ public class GameManager : MonoBehaviour
 
         if(selectableObject != null && Input.GetKeyDown(KeyCode.Return))    //オブジェクトを決定したらシーン移動
         {
-            DontDestroyOnLoad(seManager);
             seManager.EnterSound(); //SE
+            LoadingPanel.SetActive(true);   //Now Loading 表示
 
+            DontDestroyOnLoad(seManager);
             DontDestroyOnLoad(camera);
             DontDestroyOnLoad(selectableObject);
-            LoadingPanel.SetActive(true);
+
             SceneManager.LoadScene("PlayScene");
         }
     }
