@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class SelectableObject : MonoBehaviour
@@ -104,25 +102,6 @@ public class SelectableObject : MonoBehaviour
             x = Input.GetAxis("Horizontal");
             z = Input.GetAxis("Vertical");
 
-            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-            {
-                Jump();     //ジャンプ
-            }
-        }
-    }
-
-    void FixedUpdate()
-    {
-
-        if (SceneManager.GetActiveScene().name == "PlayScene")
-        {
-            rigidbody.linearVelocity = new Vector3(x * speed, 0, z * speed);    //移動
-
-            if (isJumping)
-            {
-                AddGravity();   //重力
-            }
-
             //カメラ操作
             if (isEnter)    //建物内
             {
@@ -134,6 +113,24 @@ public class SelectableObject : MonoBehaviour
                 progress = Mathf.Clamp01(progress + Time.deltaTime * cameraSpeed / distance);
                 camera.transform.position = Vector3.Lerp(cameraPosition, goalPosition, progress);
                 camera.transform.position = new Vector3(transform.position.x, camera.transform.position.y, transform.position.z - 8); //カメラ追従
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (SceneManager.GetActiveScene().name == "PlayScene")
+        {
+            rigidbody.linearVelocity = new Vector3(x * speed, 0, z * speed);    //移動
+
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+            {
+                Jump();     //ジャンプ
+            }
+
+            if (isJumping)
+            {
+                AddGravity();   //重力
             }
         }
     }
