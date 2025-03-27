@@ -11,11 +11,10 @@ public class SelectableObject : MonoBehaviour
     private float x;    //横移動
     private float z;    //前後移動
     private float speed = 5.0f; //動くスピード
-    private float jumpPower = 100;  //ジャンプ力
-    private float gravityValue = -9.81f;    //重力
+    private float jumpPower = 5;  //ジャンプ力
     private float cameraSpeed = 10f;    //カメラの移動スピード
     private float progress = 0.0f;  //カメラの進行度合い
-    private bool isJumping = true; //ジャンプ中か
+    private bool isJumping = false; //ジャンプ中か
     private bool isEnter = false;   //建物内か
 
     private float distance;         //カメラと目標点の距離
@@ -114,6 +113,11 @@ public class SelectableObject : MonoBehaviour
                 camera.transform.position = Vector3.Lerp(cameraPosition, goalPosition, progress);
                 camera.transform.position = new Vector3(transform.position.x, camera.transform.position.y, transform.position.z - 8); //カメラ追従
             }
+
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+            {
+                Jump();     //ジャンプ
+            }
         }
     }
 
@@ -121,17 +125,7 @@ public class SelectableObject : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "PlayScene")
         {
-            rigidbody.linearVelocity = new Vector3(x * speed, 0, z * speed);    //移動
-
-            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-            {
-                Jump();     //ジャンプ
-            }
-
-            if (isJumping)
-            {
-                AddGravity();   //重力
-            }
+            rigidbody.linearVelocity = new Vector3(x * speed, rigidbody.linearVelocity.y, z * speed);    //移動
         }
     }
 
@@ -139,11 +133,6 @@ public class SelectableObject : MonoBehaviour
     {
         rigidbody.AddForce(transform.up * jumpPower, ForceMode.Impulse);
         isJumping = true;
-    }
-
-    private void AddGravity()
-    {
-        rigidbody.AddForce(Vector3.up * gravityValue, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
