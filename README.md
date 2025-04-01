@@ -14,5 +14,11 @@
 # 使用ツール
 * MIDI Animation Track for Unity Timeline
 
+# 使用効果音
+このプロジェクトで使用している効果音のダウンロード先と詳細は以下の通りです。
+- **ダウンロード先**：効果音ラボ ボタン・システム音 (https://soundeffect-lab.info/sound/button/)
+- **選択音**：「決定ボタンを押す2」
+- **決定音**：「決定ボタンを押す31」
+
 # 実行動画URL
 * https://drive.google.com/file/d/162px7Q04qfFQl4XnztYlc6NXs58L0uBQ/view?usp=drive_link (3/20更新)
