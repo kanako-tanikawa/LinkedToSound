@@ -22,4 +22,4 @@
 
 # 実行動画URL
 * https://drive.google.com/file/d/162px7Q04qfFQl4XnztYlc6NXs58L0uBQ/view?usp=drive_link (3/20時点)
-* https://drive.google.com/file/d/1tPnVkkA62nc5TTk8aeylg1-8ooP3Lim7/view?usp=drive_link（4/1時点）
+* https://drive.google.com/file/d/1tPnVkkA62nc5TTk8aeylg1-8ooP3Lim7/view?usp=drive_link (4/1時点)
