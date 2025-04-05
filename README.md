@@ -1,25 +1,46 @@
-# 操作方法  
-## セレクト画面  
-* オブジェクトをマウスクリックで選択  
-* 選択状態でEscapeキーを押すと、選択解除  
-* Enterで決定  
+# プロジェクト概要
+**「音で遊ぶこと」をテーマにしたUnityプロジェクトです。**  
+選択・移動・演奏といった操作を通して、視覚と聴覚の両方で楽しめる作品を目指しています。
 
-## プレイ画面  
-* WASDまたは矢印キーで移動  
-* Spaceキーでジャンプ  
-* Qキーで音が流れる (流れているときにもう一度押すと停止)  
-* Eキーで1音ずつ流れる (BackSpaceキーを押すと最初に戻る)
-* 左上のボタンを押すと、セレクト画面に戻る
+# 操作方法  
+##  ■ 選択画面  
+- オブジェクトをマウスクリックで選択  
+- 選択状態で`Escape`キーを押すと、選択解除  
+- `Enter`キーで決定  
+
+##  ■ プレイ画面  
+- `WASD`または`←↑↓→`キーで移動  
+- `Space`キーでジャンプ  
+- `Q`キーで音が流れる (もう一度押すと停止)  
+- `E`キーで1音ずつ再生 (`Backspace`で選択画面に戻る)
+- 左上のボタンを押すと、選択画面に戻る
 
 # 使用ツール
-* MIDI Animation Track for Unity Timeline
+- **MIDI Animation Track for Unity Timeline**
+ 
+音ゲー制作のYouTube動画でこのツールを知り、ノーツ生成とは異なる形で使用できないかと考えました。  
+本プロジェクトでは、音の再生タイミングとオブジェクトの動き等を連動させることで、視覚的にも音を楽しめる演出を意識しています。
 
 # 使用効果音
 このプロジェクトで使用している効果音のダウンロード先と詳細は以下の通りです。
-- **ダウンロード先**：効果音ラボ ボタン・システム音 (https://soundeffect-lab.info/sound/button/)
-- **選択音**：「決定ボタンを押す2」
-- **決定音**：「決定ボタンを押す31」
+- **ダウンロード先**：効果音ラボ ボタン・システム音  
+https://soundeffect-lab.info/sound/button/
+- **選択音**：決定ボタンを押す2
+- **決定音**：決定ボタンを押す31
+
+上記サイトからダウンロードのうえ、`Assets/AudioClips/` フォルダ等に配置してご利用ください。
+
+# 使用BGM
+本プロジェクトでは「かえるのうた」をテーマに、音で遊ぶ体験を構築しています。  
+- タイトル画面：自作アレンジバージョンを再生
+- 選択画面・プレイ画面：原曲に近い形でループ再生
+
+使用している BGMはすべてDAWを用いて自作しています。  
+※効果音は外部素材（効果音ラボ）を使用しています。
+
+# 使用Unityバージョン
+本プロジェクトは **Unity 6000.0.34f1** で制作しています。
 
 # 実行動画URL
-* https://drive.google.com/file/d/162px7Q04qfFQl4XnztYlc6NXs58L0uBQ/view?usp=drive_link (3/20時点)
-* https://drive.google.com/file/d/1tPnVkkA62nc5TTk8aeylg1-8ooP3Lim7/view?usp=drive_link (4/1時点)
+- https://drive.google.com/file/d/162px7Q04qfFQl4XnztYlc6NXs58L0uBQ/view?usp=drive_link (3/20時点)
+- https://drive.google.com/file/d/1tPnVkkA62nc5TTk8aeylg1-8ooP3Lim7/view?usp=drive_link (4/1時点)
