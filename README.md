@@ -15,10 +15,11 @@
 - `E`キーで1音ずつ再生 (`Backspace`で選択画面に戻る)
 - 左上のボタンを押すと、選択画面に戻る
 
-# 使用ツール
-- **MIDI Animation Track for Unity Timeline**
- 
-音ゲー制作のYouTube動画でこのツールを知り、ノーツ生成とは異なる形で使用できないかと考えました。  
+# 使用アセット
+- **MIDI Animation Track**  
+https://github.com/keijiro/MidiAnimationTrack
+
+音ゲー制作のYouTube動画でこのアセットを知り、ノーツ生成とは異なる形で使用できないかと考えました。  
 本プロジェクトでは、音の再生タイミングとオブジェクトの動き等を連動させることで、視覚的にも音を楽しめる演出を意識しています。
 
 # 使用効果音
