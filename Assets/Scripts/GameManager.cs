@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;    //シングルトンのインスタンス設定
 
         //複数回のシーン移動で増えるのを防ぐ

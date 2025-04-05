@@ -13,8 +13,8 @@ public class PlayScenePanelManager : MonoBehaviour
     {
         loadingPanel.SetActive(true);
         Destroy(GameObject.Find("SEManager"));
-        GameObject.Find("Main Camera").name = "Sub Camera";
-        GameObject.FindGameObjectWithTag("Player").name = "OldPlayer";
+        GameObject.Find("Main Camera").name = "Sub Camera"; //Destroy‚·‚é‚Æ‰æ–Ê‚É"No cameras rendering"‚ª‰f‚Á‚Ä‚µ‚Ü‚¤
+        GameObject.FindGameObjectWithTag("Player").name = "OldPlayer";     //Destroy‚·‚é‚ÆÁ‚¦‚½uŠÔ‚ª‰f‚Á‚Ä‚µ‚Ü‚¤
         SceneManager.LoadScene("SelectScene");
     }
 
